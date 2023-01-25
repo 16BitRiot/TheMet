@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="met.css">
+    <title>THE MET</title>
+</head>
+
+<body>
+    <h1>Display Image</h1>
+    <button id="startButton">Display Random Artwork</button>
+    <div id="display">
+        <div id="img-and-text">
+            <img id="picture" src="" alt="">
+            <div id="info">
+                <h2 id="title"></h2>
+                <h3 id="artistName"></h3>
+                <p id="lifeSpan"></p>
+                <p id="medium"></p>
+                <p id="dimensions"></p>
+            </div>
+        </div>
+    </div>
+    
+    <script src="https://unpkg.com/jquery"></script>
+    <script src="https://unpkg.com/axios/dist/axios.js"></script>
+    <script src="https://unpkg.com/lodash"></script>
+    <script src="met.js"></script>
+</body>
+
+</html>

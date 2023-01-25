@@ -1,0 +1,97 @@
+body {
+    background-color: darkolivegreen;
+}
+
+h1 {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    background-color: gold;
+    color: white;
+    padding: 10px;
+    text-shadow: 2px 2px 2px black;
+    font-size: 3em;
+    letter-spacing: 3px;
+    -webkit-text-stroke: 1px black;
+}
+
+#startButton {
+    margin: 0 auto;
+    display: block;
+}
+
+#img-and-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#picture {
+    max-width: 25%;
+    max-height: 25%;
+    object-fit: contain;
+    margin-bottom: 10px;
+}
+
+#info {
+    background-color: white;
+    padding: 10px;
+    text-align: left;
+    border: 1px solid black;
+    display: block;
+    float: left;
+}
+
+#info h2 {
+    font-size: 1.5em;
+    line-height: 1.2;
+    margin: 0;
+    padding: 5px;
+}
+
+#info h3 {
+    font-size: 1.2em;
+    line-height: 1.2;
+    margin: 0;
+    padding: 5px;
+}
+
+#info p {
+    font-size: 1em;
+    line-height: 1.2;
+    margin: 0;
+    padding: 5px;
+}
+
+#display {
+    position: relative;
+    padding: 10px;
+}
+
+#display::before {
+    content:'';
+    position: absolute;
+    top:-10px;
+    left:-10px;
+    right:-10px;
+    bottom:-10px;
+    border: 10px solid gold;
+    z-index: -1;
+}
+
+@media (max-width: 1200px) {
+    #picture {
+        width: 450px;
+        height: 450px;
+    }
+    #info h2 {
+        font-size: 1.5em;
+    }
+    #info h3 {
+        font-size: 1.3em;
+    }
+    #info p {
+        font-size: 1em;
+    }
+}
+
