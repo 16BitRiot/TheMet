@@ -9,7 +9,6 @@ startButton.addEventListener('click', handleClick);
 function numGen() { return Math.floor(Math.random() * 80000) };
 
 async function handleClick() {            
-    // debugger
     const artbox = display.querySelector('#artbox');
     if (artbox) {
         display.removeChild(artbox);
@@ -22,8 +21,6 @@ async function handleClick() {
             handleClick();
         } else {
 
-            // debugger
-
             pageInfo.picURL = data.data.primaryImage;
             pageInfo.title = data.data.title;
             pageInfo.medium = data.data.medium;
@@ -31,11 +28,12 @@ async function handleClick() {
             pageInfo.lifeSpan = data.data.artistDisplayBio;
             pageInfo.dimensions = data.data.dimensions;
 
-
-
             // Create img element
             let picture = document.createElement('img');
             picture.src = pageInfo.picURL;
+            picture.onclick = function() {
+                window.open(pageInfo.picURL, '_blank');
+            };            
             picture.id = 'picture';
             picture.style.width = '50%';
             picture.style.height = '100%';
@@ -52,7 +50,6 @@ async function handleClick() {
             info.style.padding = '10px';
             info.style.textAlign = 'left';
             info.style.border = '1px solid #a6a6a6';
-            info.style.alignSelf = 'center';
 
             // Create h2 element
             let title = document.createElement('h2');
@@ -95,7 +92,9 @@ async function handleClick() {
             // Create an "artbox" div to hold picture and info box
             let artBox = document.createElement('div')
             artBox.setAttribute('id', 'artbox')
-            let breaker = document.createElement('br')
+            artBox.style.width = '50%';
+            artBox.style.height = '50%';
+            artBox.style.alignItems = 'center';
 
             // Append elements to the display div
             info.appendChild(title);
@@ -106,11 +105,10 @@ async function handleClick() {
             artBox.appendChild(picture);
             artBox.appendChild(info);
             display.appendChild(artBox);
-            display.appendChild(breaker);
 
 
         }
     } catch (error) {
-        alert("Artwork failed to load failed, please try again.");
+        alert("Sorry, the artwork failed to load. Please try again.");
     }
 }
