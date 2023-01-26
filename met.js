@@ -17,10 +17,11 @@ async function handleClick() {
     try {
         let response = await axios.get(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${numGen()}`);
         data = response;
-        if (data.data.primaryImage == null) {
+        // debugger
+        if (data.data.primaryImage == ''|| response.status === 404) {
             handleClick();
         } else {
-
+            console.log(data.data)
             pageInfo.picURL = data.data.primaryImage;
             pageInfo.title = data.data.title;
             pageInfo.medium = data.data.medium;
@@ -109,6 +110,7 @@ async function handleClick() {
 
         }
     } catch (error) {
+        console.log(data.data)
         alert("Sorry, the artwork failed to load. Please try again.");
     }
 }
