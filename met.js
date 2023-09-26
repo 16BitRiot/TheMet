@@ -9,3 +9,4 @@ const startButton = document.querySelector('#startButton');
 startButton.addEventListener('click', () => {
   taskOrganizer.handleStartClick();
 });
+
