@@ -19,14 +19,14 @@ class TaskOrganizer {
     if (artbox) {
       this.display.removeChild(artbox);
     }
-
+  
     try {
       const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${this.numGen()}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       this.data = await response.json();
-
+  
       if (this.data.primaryImage === '' || response.status === 404) {
         this.handleStartClick();
       } else {
@@ -36,14 +36,24 @@ class TaskOrganizer {
         this.pageInfo.artistName = this.data.artistDisplayName;
         this.pageInfo.lifeSpan = this.data.artistDisplayBio;
         this.pageInfo.dimensions = this.data.dimensions;
-        // resize image
-        const picURL = this.pageInfo.picURL;
-        const picURLsplit = picURL.split('=');
-        const picURLsize = picURLsplit[1].split('&');
-        const picURLsizeNum = parseInt(picURLsize[0]);
-        const picURLsizeHalf = picURLsizeNum / 2;
-        const picURLsizeHalfStr = picURLsizeHalf.toString();
-
+  
+        // Resize the image
+        const canvas = document.createElement('canvas');
+        canvas.width = 300; // Replace 300 with the desired width
+        canvas.height = 200; // Replace 200 with the desired height
+  
+        const ctx = canvas.getContext('2d');
+  
+        const image = new Image();
+        image.onload = function() {
+          ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+  
+          const resizedImageDataURI = canvas.toDataURL();
+  
+          artbox.src = resizedImageDataURI;
+        };
+        image.src = this.pageInfo.picURL;
+  
         this.createElements();
       }
     } catch (error) {
@@ -51,6 +61,7 @@ class TaskOrganizer {
       alert("Sorry, the artwork failed to load. Please try again.");
     }
   }
+  
 
   createElements() {
     // Method to create and display HTML elements based on fetched artwork data
