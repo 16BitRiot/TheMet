@@ -6,6 +6,7 @@ class TaskOrganizer {
     this.startButton.addEventListener('click', async () => {
       await this.handleStartClick();
       console.log('HELLO!'); // Added console.log for the button
+      debugger; // Added debugger for the button
     });
   }
 
@@ -35,6 +36,13 @@ class TaskOrganizer {
         this.pageInfo.artistName = this.data.artistDisplayName;
         this.pageInfo.lifeSpan = this.data.artistDisplayBio;
         this.pageInfo.dimensions = this.data.dimensions;
+        // resize image
+        const picURL = this.pageInfo.picURL;
+        const picURLsplit = picURL.split('=');
+        const picURLsize = picURLsplit[1].split('&');
+        const picURLsizeNum = parseInt(picURLsize[0]);
+        const picURLsizeHalf = picURLsizeNum / 2;
+        const picURLsizeHalfStr = picURLsizeHalf.toString();
 
         this.createElements();
       }
@@ -47,7 +55,21 @@ class TaskOrganizer {
   createElements() {
     // Method to create and display HTML elements based on fetched artwork data
     // ... (rest of the code for creating elements)
+    const artbox = document.createElement('div');
+    artbox.id = 'artbox';
+    artbox.innerHTML = `
+      <img src="${this.pageInfo.picURL}" alt="${this.pageInfo.title}">
+      <div id="info">
+        <h2>${this.pageInfo.title}</h2>
+        <p>${this.pageInfo.medium}</p>
+        <p>${this.pageInfo.artistName}</p>
+        <p>${this.pageInfo.lifeSpan}</p>
+        <p>${this.pageInfo.dimensions}</p>
+      </div>
+    `;
+    this.display.appendChild(artbox);
   }
 }
 
 const taskOrganizer = new TaskOrganizer();
+export default taskOrganizer;
