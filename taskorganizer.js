@@ -47,9 +47,9 @@ class TaskOrganizer {
         const image = new Image();
         image.onload = function() {
           ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
-  
+
+          // Moved this code inside the onload function
           const resizedImageDataURI = canvas.toDataURL();
-  
           artbox.src = resizedImageDataURI;
         };
         image.src = this.pageInfo.picURL;
