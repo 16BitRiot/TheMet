@@ -6,7 +6,7 @@ class TaskOrganizer {
     this.startButton.addEventListener('click', async () => {
       await this.handleStartClick();
       console.log('HELLO!'); // Added console.log for the button
-      debugger; // Added debugger for the button
+      // debugger; // Added debugger for the button
     });
   }
 
@@ -19,14 +19,14 @@ class TaskOrganizer {
     if (artbox) {
       this.display.removeChild(artbox);
     }
-  
+
     try {
       const response = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${this.numGen()}`);
       if (!response.ok) {
         throw new Error('Network response was not ok');
       }
       this.data = await response.json();
-  
+
       if (this.data.primaryImage === '' || response.status === 404) {
         this.handleStartClick();
       } else {
@@ -36,24 +36,37 @@ class TaskOrganizer {
         this.pageInfo.artistName = this.data.artistDisplayName;
         this.pageInfo.lifeSpan = this.data.artistDisplayBio;
         this.pageInfo.dimensions = this.data.dimensions;
-  
-        // Resize the image
+
+        // Resize the image and artbox
+        const screenWidth = window.innerWidth;
+        const screenHeight = window.innerHeight;
+        const maxWidth = Math.min(0.005 * screenWidth, 300); // 40% of screen width or max 300px
+        const maxHeight = Math.min(0.005 * screenHeight, 200); // 40% of screen height or max 200px
+
         const canvas = document.createElement('canvas');
-        canvas.width = 300; // Replace 300 with the desired width
-        canvas.height = 200; // Replace 200 with the desired height
-  
+        const aspectRatio = maxWidth / maxHeight;
+        let canvasWidth = maxWidth;
+        let canvasHeight = maxWidth / aspectRatio;
+
+        if (canvasHeight > maxHeight) {
+          canvasHeight = maxHeight;
+          canvasWidth = maxHeight * aspectRatio;
+        }
+
+        canvas.width = canvasWidth;
+        canvas.height = canvasHeight;
+
         const ctx = canvas.getContext('2d');
-  
+
         const image = new Image();
-        image.onload = function() {
+        image.onload = function () {
           ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
 
-          // Moved this code inside the onload function
           const resizedImageDataURI = canvas.toDataURL();
           artbox.src = resizedImageDataURI;
         };
         image.src = this.pageInfo.picURL;
-  
+
         this.createElements();
       }
     } catch (error) {
@@ -61,15 +74,14 @@ class TaskOrganizer {
       alert("Sorry, the artwork failed to load. Please try again.");
     }
   }
-  
 
   createElements() {
     // Method to create and display HTML elements based on fetched artwork data
-    // ... (rest of the code for creating elements)
     const artbox = document.createElement('div');
     artbox.id = 'artbox';
+    artbox.style.width = '15%'; // Set artbox width to 40%
     artbox.innerHTML = `
-      <img src="${this.pageInfo.picURL}" alt="${this.pageInfo.title}">
+      <img src="${this.pageInfo.picURL}" alt="${this.pageInfo.title}" style="width: 100%; height: auto;">
       <div id="info">
         <h2>${this.pageInfo.title}</h2>
         <p>${this.pageInfo.medium}</p>
