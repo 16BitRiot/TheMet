@@ -78,7 +78,7 @@ h1 {
     align-items: center;
     justify-content: center;
     width: 500px;
-    height: 500px;
+    /* height: 500px; */
     margin: 0 auto;
     margin-top: 25px;
     border: 2px solid #3f72af;

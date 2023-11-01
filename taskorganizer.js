@@ -79,7 +79,7 @@ class TaskOrganizer {
     // Method to create and display HTML elements based on fetched artwork data
     const artbox = document.createElement('div');
     artbox.id = 'artbox';
-    artbox.style.width = '15%'; // Set artbox width to 40%
+    artbox.style.width = '40%'; // Set artbox width to 40%
     artbox.innerHTML = `
       <img src="${this.pageInfo.picURL}" alt="${this.pageInfo.title}" style="width: 100%; height: auto;">
       <div id="info">
