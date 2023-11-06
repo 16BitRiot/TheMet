@@ -1,5 +1,5 @@
 // Import the TaskOrganizer class from taskOrganizer.js
-import TaskOrganizer from './taskOrganizer.js';
+import TaskOrganizer from './taskorganizer.js';
 
 // Create an instance of TaskOrganizer and start the task handling
 const taskOrganizer = new TaskOrganizer();
