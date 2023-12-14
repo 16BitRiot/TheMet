@@ -91,6 +91,17 @@ class TaskOrganizer {
       </div>
     `;
     this.display.appendChild(artbox);
+
+    // Add event listener to the image
+    const artImage = document.querySelector('#artImage');
+    if (artImage) {
+      artImage.addEventListener('click', () => {
+        // Perform your action here
+        console.log('Image clicked!');
+      });
+    } else {
+      console.error('Image element not found');
+    }
   }
 }
 
