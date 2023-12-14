@@ -81,6 +81,7 @@ class TaskOrganizer {
     artbox.id = 'artbox';
     artbox.style.width = '40%'; // Set artbox width to 40%
     artbox.innerHTML = `
+    <a href="${this.pageInfo.picURL}" target="_blank">
       <img src="${this.pageInfo.picURL}" alt="${this.pageInfo.title}" style="width: 100%; height: auto;">
       <div id="info">
         <h2>${this.pageInfo.title}</h2>
